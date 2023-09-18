@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lemon.lib.mapper.LibMapper">
+    <resultMap id="BaseResultMap" type="cn.lemon.lib.entity.Lib">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="number" jdbcType="CHAR" property="number" />
+        <result column="manager" jdbcType="VARCHAR" property="manager" />
+        <result column="quantity" jdbcType="INTEGER" property="quantity" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, `name`, grader_id, teacher_id, start_week, end_week, `day`, `part`
+  </sql>
+    <select id="getCurrentlyUnusedLabList" resultMap="BaseResultMap">
+        SELECT *
+        FROM lib
+        WHERE lib.id NOT IN (
+            SELECT r.lib_id
+            FROM reservation r
+            WHERE day = #{day}
+                  AND part = #{part}
+                  AND start_week = #{startWeek}
+        )
+    </select>
+
+</mapper>

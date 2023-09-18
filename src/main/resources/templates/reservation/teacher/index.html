@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师预约</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <input type="hidden" name="type" value="1">
+        <div class="layui-form-item">
+            <label class="layui-form-label">第几周</label>
+            <div class="layui-input-block">
+                <select name="startWeek" id="startWeek" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="start:${weeks}" th:value="${start.key}" th:text="${start.value}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">周几</label>
+            <div class="layui-input-block">
+                <select name="day" id="day" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="day:${days}" th:value="${day.key}" th:text="${day.value}" ></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">节次</label>
+            <div class="layui-input-block">
+                <select name="part" id="part" lay-verify="required" lay-filter="part">
+                    <option value=""></option>
+                    <option th:each="part:${parts}" th:value="${part.key}" th:text="${part.value}" ></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">实验室</label>
+            <div class="layui-input-block">
+                <select name="libId" lay-verify="required" id="lib">
+                    <option value=""></option>
+                    <!--<option th:each="part:${parts}" th:value="${part.key}" th:text="${part.value}" ></option>-->
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">班级</label>
+            <div class="layui-input-block">
+                <select name="grade" lay-verify="required" id="grade">
+                    <option value=""></option>
+                    <!--<option th:each="part:${parts}" th:value="${part.key}" th:text="${part.value}" ></option>-->
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">通知信息</label>
+            <div class="layui-input-block">
+                <input type="text" name="remark"  required  lay-verify="required" placeholder="请输入通知内容" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即预约</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/reservation/teacher/index.js"></script>
+</html>

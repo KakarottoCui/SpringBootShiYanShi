@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加菜单</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item" th:if="${menu.getName() == null}">
+            <label class="layui-form-label">
+                <a href="http://localhost:8080/menu/index.html" class="layui-btn layui-btn-normal">返回</a>
+            </label>
+        </div>
+        <div class="layui-form-item" th:if="${menu.getId() != 0}">
+            <input type="hidden" name="id" th:value="${menu.getId()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" th:value="${menu.getName()}" required  lay-verify="required" placeholder="请输入菜单" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单路径</label>
+            <div class="layui-input-block">
+                <input type="text" name="url" th:value="${menu.getUrl()}" required lay-verify="required" placeholder="请输入路径" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单权重</label>
+            <div class="layui-input-block">
+                <input type="text" name="sort" th:value="${menu.getSort()}" placeholder="数字越小菜单越在下面" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">父菜单</label>
+            <div class="layui-input-block">
+                <select name="parentId" lay-verify="required">
+                    <option th:value="${menu.getParentId()}"></option>
+                    <option value="0" th:selected="${menu.getParentId() == 0}">一级菜单</option>
+                    <option th:each="parent:${parentMenuList}" th:value="${parent.getId()}" th:text="${parent.getName()}" th:selected="${parent.getId() == menu.getParentId()}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" th:if="${menu.getId() == 0}">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/menu/add.js"></script>
+</html>

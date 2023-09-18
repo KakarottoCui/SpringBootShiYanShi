@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lemon.lib.mapper.SubjectMapper">
+  <resultMap id="BaseResultMap" type="cn.lemon.lib.entity.Subject">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="grader_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="start_week" jdbcType="INTEGER" property="startWeek" />
+    <result column="end_week" jdbcType="INTEGER" property="endWeek" />
+    <result column="day" jdbcType="INTEGER" property="day" />
+    <result column="part" jdbcType="INTEGER" property="part" />
+    <result column="grade_name" jdbcType="VARCHAR" property="gradeName" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, grader_id, teacher_id, start_week, end_week, `day`, `part`
+  </sql>
+  <select id="getSubjectListPage" resultMap="BaseResultMap">
+    select
+      subject.id as id,subject.name as name ,teacher.username as teacher_name ,grade.name as grade_name,start_week,end_week,`day`,part
+    from subject
+    left join grade on grade.id = subject.grade_id
+    left join teacher on teacher.id = subject.teacher_id
+    limit #{page},#{limit}
+  </select>
+
+</mapper>

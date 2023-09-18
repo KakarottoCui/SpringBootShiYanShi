@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加课程</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item" th:if="${subject.getId() == 0}">
+            <label class="layui-form-label">
+                <a href="http://localhost:8080/education/subject/index.html" class="layui-btn layui-btn-normal">返回</a>
+            </label>
+        </div>
+        <div class="layui-form-item" th:if="${subject.getId() != 0}">
+            <input type="hidden" name="id" th:value="${subject.getId()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">课程名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" th:value="${subject.getName()}" required  lay-verify="required" placeholder="请输入课程名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">班级</label>
+            <div class="layui-input-block">
+                <select name="gradeId" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="grade:${gradeList}" th:value="${grade.getId()}" th:text="${grade.getName()}" th:selected="${grade.getId() == subject.getGradeId()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">老师</label>
+            <div class="layui-input-block">
+                <select name="teacherId" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="teacher:${teacherList}" th:value="${teacher.getId()}" th:text="${teacher.getUsername()}" th:selected="${teacher.getId() == subject.getTeacherId()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">起始周</label>
+            <div class="layui-input-block">
+                <select name="startWeek" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="start:${weeks}" th:value="${start.key}" th:text="${start.value}" th:selected="${start.key == subject.getStartWeek()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束周</label>
+            <div class="layui-input-block">
+                <select name="endWeek" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="end:${weeks}" th:value="${end.key}" th:text="${end.value}" th:selected="${end.key == subject.getEndWeek()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">周几</label>
+            <div class="layui-input-block">
+                <select name="day" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="day:${days}" th:value="${day.key}" th:text="${day.value}" th:selected="${day.key == subject.getDay()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">节次</label>
+            <div class="layui-input-block">
+                <select name="part" lay-verify="required">
+                    <option value=""></option>
+                    <option th:each="part:${parts}" th:value="${part.key}" th:text="${part.value}" th:selected="${part.key == subject.getPart()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" th:if="${subject.getId() == 0}">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/education/subject/add.js"></script>
+</html>

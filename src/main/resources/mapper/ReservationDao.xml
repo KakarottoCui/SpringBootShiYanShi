@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.lemon.lib.mapper.ReservationMapper">
+  <resultMap id="BaseResultMap" type="cn.lemon.lib.entity.Reservation">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="lib_id" jdbcType="INTEGER" property="libId" />
+    <result column="grade_id" jdbcType="INTEGER" property="gradeId" />
+    <result column="start_week" jdbcType="INTEGER" property="startWeek" />
+    <result column="end_week" jdbcType="INTEGER" property="endWeek" />
+    <result column="day" jdbcType="INTEGER" property="day" />
+    <result column="part" jdbcType="INTEGER" property="part" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="lib_name" jdbcType="VARCHAR" property="libName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, `type`, lib_id, grade_id, start_week, end_week, `day`, `part`, remark, 
+    create_time, update_time
+  </sql>
+  <select id="getReservationList" resultMap="BaseResultMap">
+    SELECT reservation.id as id,
+    user_id,type,lib_id,grade_id,
+    start_week,end_week,`day`,part,
+    reservation.`status`,
+    reservation.type,
+    reservation.remark,
+    lib.name as lib_name
+    FROM reservation,lib
+    WHERE reservation.lib_id = lib.id
+    GROUP BY reservation.id
+    limit #{page},#{limit}
+  </select>
+
+  <select id="getTeacherReservationList" resultMap="BaseResultMap">
+    SELECT reservation.id as id,
+    user_id,type,lib_id,grade_id,
+    start_week,end_week,`day`,part,
+    reservation.`status`,
+    reservation.type,
+    reservation.remark,
+    lib.name as lib_name
+    FROM reservation,lib
+    WHERE reservation.lib_id = lib.id
+    and user_id = #{userId}
+    and type = 1
+    GROUP BY reservation.id
+    limit #{page},#{limit}
+  </select>
+
+  <select id="getStudentReservationList" resultMap="BaseResultMap">
+    SELECT reservation.id as id,
+    user_id,type,lib_id,grade_id,
+    start_week,end_week,`day`,part,
+    reservation.`status`,
+    reservation.type,
+    reservation.remark,
+    lib.name as lib_name
+    FROM reservation,lib
+    WHERE reservation.lib_id = lib.id
+    and user_id = #{userId}
+    and type = 0
+    GROUP BY reservation.id
+    limit #{page},#{limit}
+  </select>
+    <select id="getNoneAuditReservationList" resultMap="BaseResultMap">
+    SELECT reservation.id as id,
+    user_id,type,lib_id,grade_id,
+    start_week,end_week,`day`,part,
+    reservation.`status`,
+    reservation.type,
+    reservation.remark,
+    lib.name as lib_name
+    FROM reservation,lib
+    WHERE reservation.lib_id = lib.id and reservation.status = 0
+    GROUP BY reservation.id
+    limit #{page},#{limit}
+  </select>
+
+    <select id="noneAuditcount" resultType="java.lang.Long">
+    SELECT  count(*)
+    FROM reservation
+    WHERE
+    status = 0
+  </select>
+
+  <select id="studentCount" resultType="java.lang.Long">
+    SELECT  count(*)
+    FROM reservation
+    WHERE
+    type = 0 and
+    user_id = #{userId}
+  </select>
+
+  <select id="teacherCount" resultType="java.lang.Long">
+    SELECT  count(*)
+    FROM reservation
+    WHERE
+    type = 1 and
+    user_id = #{userId}
+  </select>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from reservation-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</delete>-->
+  <!--<insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.lemon.lib.entity.Reservation" useGeneratedKeys="true">-->
+    <!--insert into reservation (user_id, `type`, lib_id, -->
+      <!--grade_id, start_week, end_week, -->
+      <!--`day`, `part`, remark, -->
+      <!--create_time, update_time)-->
+    <!--values (#{userId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{libId,jdbcType=INTEGER}, -->
+      <!--#{gradeId,jdbcType=INTEGER}, #{startWeek,jdbcType=INTEGER}, #{endWeek,jdbcType=INTEGER}, -->
+      <!--#{day,jdbcType=INTEGER}, #{part,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, -->
+      <!--#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})-->
+  <!--</insert>-->
+  <!--<insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="cn.lemon.lib.entity.Reservation" useGeneratedKeys="true">-->
+    <!--insert into reservation-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+      <!--<if test="userId != null">-->
+        <!--user_id,-->
+      <!--</if>-->
+      <!--<if test="type != null">-->
+        <!--`type`,-->
+      <!--</if>-->
+      <!--<if test="libId != null">-->
+        <!--lib_id,-->
+      <!--</if>-->
+      <!--<if test="gradeId != null">-->
+        <!--grade_id,-->
+      <!--</if>-->
+      <!--<if test="startWeek != null">-->
+        <!--start_week,-->
+      <!--</if>-->
+      <!--<if test="endWeek != null">-->
+        <!--end_week,-->
+      <!--</if>-->
+      <!--<if test="day != null">-->
+        <!--`day`,-->
+      <!--</if>-->
+      <!--<if test="part != null">-->
+        <!--`part`,-->
+      <!--</if>-->
+      <!--<if test="remark != null">-->
+        <!--remark,-->
+      <!--</if>-->
+      <!--<if test="createTime != null">-->
+        <!--create_time,-->
+      <!--</if>-->
+      <!--<if test="updateTime != null">-->
+        <!--update_time,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides=",">-->
+      <!--<if test="userId != null">-->
+        <!--#{userId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="type != null">-->
+        <!--#{type,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="libId != null">-->
+        <!--#{libId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="gradeId != null">-->
+        <!--#{gradeId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="startWeek != null">-->
+        <!--#{startWeek,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="endWeek != null">-->
+        <!--#{endWeek,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="day != null">-->
+        <!--#{day,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="part != null">-->
+        <!--#{part,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="remark != null">-->
+        <!--#{remark,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createTime != null">-->
+        <!--#{createTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="updateTime != null">-->
+        <!--#{updateTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="cn.lemon.lib.entity.Reservation">-->
+    <!--update reservation-->
+    <!--<set>-->
+      <!--<if test="userId != null">-->
+        <!--user_id = #{userId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="type != null">-->
+        <!--`type` = #{type,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="libId != null">-->
+        <!--lib_id = #{libId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="gradeId != null">-->
+        <!--grade_id = #{gradeId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="startWeek != null">-->
+        <!--start_week = #{startWeek,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="endWeek != null">-->
+        <!--end_week = #{endWeek,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="day != null">-->
+        <!--`day` = #{day,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="part != null">-->
+        <!--`part` = #{part,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="remark != null">-->
+        <!--remark = #{remark,jdbcType=VARCHAR},-->
+      <!--</if>-->
+      <!--<if test="createTime != null">-->
+        <!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+      <!--<if test="updateTime != null">-->
+        <!--update_time = #{updateTime,jdbcType=TIMESTAMP},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKey" parameterType="cn.lemon.lib.entity.Reservation">-->
+    <!--update reservation-->
+    <!--set user_id = #{userId,jdbcType=INTEGER},-->
+      <!--`type` = #{type,jdbcType=INTEGER},-->
+      <!--lib_id = #{libId,jdbcType=INTEGER},-->
+      <!--grade_id = #{gradeId,jdbcType=INTEGER},-->
+      <!--start_week = #{startWeek,jdbcType=INTEGER},-->
+      <!--end_week = #{endWeek,jdbcType=INTEGER},-->
+      <!--`day` = #{day,jdbcType=INTEGER},-->
+      <!--`part` = #{part,jdbcType=INTEGER},-->
+      <!--remark = #{remark,jdbcType=VARCHAR},-->
+      <!--create_time = #{createTime,jdbcType=TIMESTAMP},-->
+      <!--update_time = #{updateTime,jdbcType=TIMESTAMP}-->
+    <!--where id = #{id,jdbcType=INTEGER}-->
+  <!--</update>-->
+</mapper>

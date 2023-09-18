@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <div class="layui-row">
+        <div class="layui-col-md1">
+            <a href="http://localhost:8080/user/student/add.html" class="layui-btn layui-btn-normal">添加学生</a>
+        </div>
+        <div class="layui-col-md4">
+            <form class="layui-form" action="">
+                <div class="layui-col-md6">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">班级</label>
+                        <div class="layui-input-block">
+                            <select name="gradeId" lay-verify="required">
+                                <option value="0">请选择班级</option>
+                                <option th:each="grade:${gradeList}" th:value="${grade.getId()}"
+                                        th:text="${grade.getName()}"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-col-md2">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">查询</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <br><br>
+    <table id="tableList" lay-filter="tableList"></table>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/user/student/index.js"></script>
+<!--工具栏-->
+<script type="text/html" id="barTool">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加班级</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item" th:if="${grade.getId() == 0}">
+            <label class="layui-form-label">
+                <a href="http://localhost:8080/education/grade/index.html" class="layui-btn layui-btn-normal">返回</a>
+            </label>
+        </div>
+        <div class="layui-form-item" th:if="${grade.getId() != 0}">
+            <input type="hidden" name="id" th:value="${grade.getId()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">班级名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" th:value="${grade.getName()}" required  lay-verify="required" placeholder="请输入班级名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" th:if="${grade.getId() == 0}">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/education/grade/add.js"></script>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>在线实验室预约系统</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">实验室后台管理</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+        </ul>
+
+        <ul class="layui-nav layui-layout-right">
+
+            <li class="layui-nav-item">
+                <p th:text="${name}"></p>
+                <!--<a href="javascript:;">-->
+                    <!--<img src="http://t.cn/RCzsdCq" class="layui-nav-img">-->
+                <!--</a>-->
+                <!--<dl class="layui-nav-child">-->
+                    <!--<dd><a href="">基本资料</a></dd>-->
+                    <!--<dd><a href="">安全设置</a></dd>-->
+                <!--</dl>-->
+            </li>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+
+                <li class="layui-nav-item" th:each="menu:${menuTree}">
+                    <a class="" href="javascript:;" th:text="${menu.getName()}"></a>
+                    <dl class="layui-nav-child" th:if="${menu.getChild() != null}">
+                        <dd th:each="child:${menu.getChild()}">
+                            <a th:href="${child.getUrl()}" target="iframeMain" th:text="${child.getName()}"></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">班级</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="./education/grade/mine.html">我的班级</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">实验室</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="./lib/studentIndex.html">实验室列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">预约</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="./reservation/teacher/index.html">教师预约</a></dd>
+                        <dd><a href="./reservation/teacher/mine.html">我的预约</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="iframeMain" src="" width="100%" height="90%" frameborder="0"></iframe>
+    </div>
+
+</div>
+<script src="layui/layui.js"></script>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+      $("dd>a").click(function (e) {
+            e.preventDefault();
+            $("#iframeMain").attr("src",$(this).attr("href"));
+        });
+    });
+    //JavaScript代码区域
+    layui.use('element', function(){
+      var element = layui.element;
+
+    });
+
+</script>
+</body>
+</html>

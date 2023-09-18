@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实验管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+    <a href="http://localhost:8080/lib/add.html" class="layui-btn layui-btn-normal">添加实验室</a>
+    <br><br>
+    <table id="tableList" lay-filter="tableList"></table>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/lib/index.js"></script>
+<!--工具栏-->
+<script type="text/html" id="barTool">
+    <!--<a class="layui-btn layui-btn-xs" lay-event="edit">预约</a>-->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</html>

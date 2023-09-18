@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加班级</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item" th:if="${lib.getId() == 0}">
+            <label class="layui-form-label">
+                <a href="http://localhost:8080/lib/index.html" class="layui-btn layui-btn-normal">返回</a>
+            </label>
+        </div>
+        <div class="layui-form-item" th:if="${lib.getId() != 0}">
+            <input type="hidden" name="id" th:value="${lib.getId()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">实验室名称</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" th:value="${lib.getName()}" required  lay-verify="required" placeholder="请输入实验室名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">实验室编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="number" th:value="${lib.getNumber()}" required  lay-verify="required" placeholder="请输入实验室编号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地点</label>
+            <div class="layui-input-block">
+                <input type="text" name="place" th:value="${lib.getPlace()}" required  lay-verify="required" placeholder="请输入实验室地点" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">管理人</label>
+            <div class="layui-input-block">
+                <input type="text" name="manager" th:value="${lib.getManager()}" required  lay-verify="required" placeholder="请输入实验室管理者" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">容纳人数</label>
+            <div class="layui-input-block">
+                <input type="text" name="quantity" th:value="${lib.getQuantity()}" required  lay-verify="required" placeholder="请输入实验室容乃人数" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" name="remark" th:value="${lib.getRemark()}" required  lay-verify="required" placeholder="请输入实验室备注" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" th:if="${lib.getId() == 0}">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/lib/add.js"></script>
+</html>

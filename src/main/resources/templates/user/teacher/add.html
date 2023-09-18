@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加教师</title>
+    <link rel="stylesheet" href="/layui/css/layui.css" media="all">
+</head>
+<body>
+<div style="margin: 50px 50px 50px 50px;">
+
+    <form class="layui-form" action="">
+        <div class="layui-form-item" th:if="${teacher.getUsername() == null}">
+            <label class="layui-form-label">
+                <a href="http://localhost:8080/user/teacher/index.html" class="layui-btn layui-btn-normal">返回</a>
+            </label>
+        </div>
+        <div class="layui-form-item" th:if="${teacher.getId() != 0}">
+            <input type="hidden" name="id" th:value="${teacher.getId()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">教师姓名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" th:value="${teacher.getUsername()}" required  lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" th:value="${teacher.getPassword()}" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+                <input type="text" name="sex" th:value="${teacher.getSex()}" required  lay-verify="required" placeholder="请输入性别" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年纪</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" th:value="${teacher.getAge()}" required  lay-verify="required" placeholder="请输入年纪" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" th:value="${teacher.getPhone()}" required  lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" type="button" lay-submit lay-filter="formSubmit">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary" th:if="${teacher.getId() == 0}">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+<script src="/layui/layui.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/user/teacher/add.js"></script>
+</html>
