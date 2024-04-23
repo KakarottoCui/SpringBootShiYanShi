@@ -2,6 +2,7 @@
 基于java SpringBoot和HTML实验室预约管理系统设计
 
 版本1演示视频链接：https://live.csdn.net/v/329106
+
 版本2演示视频链接：https://www.bilibili.com/video/BV1eT42117nc/
 
 版本1实现的功能
